@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un anniversaire{% endblock %}
+
+{% block body %}
+    <h1>Modifier un anniversaire</h1>
+
+    {{ include('member/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+{% endblock %}

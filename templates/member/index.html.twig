@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Member index{% endblock %}
+
+{% block body %}
+    <h1>Liste d'anniversaire</h1>
+    <h3>Anniversaires dans moins de 30 jours</h3>
+    <div class="grix xs2 md3 lg4">
+        {% for member in annivProche %}
+            <div class="card white rounded-2 shadow-1 mx-auto" style="max-width: 400px;">
+                <div class="card-content">
+                    <span class="h3">{{ member.lastname }} {{ member.firstname }}</span>
+                    <div class="font-s3 text-grey text-light-2">
+                        {% set now = "now"|date('Y-m-d') %}
+                        {% set birthday = "now"|date('Y') ~ "-" ~ member.birthday|date('m-d') %}
+                        {% set daysDiff = date(birthday).format('z') - now|date('z') %}
+                        {% if daysDiff < 0 %}
+                            {% set daysDiff = 365 + daysDiff %}
+                        {% endif %}
+                        {{ daysDiff ~ ' jours restants' }}
+                    </div>
+                    <div class="mt-3">
+                        Naissance : {{ member.birthday ? member.birthday|date('D, d M Y') : '' }}
+                    </div>
+                </div>
+
+                <div class="card-footer d-flex mt-1">
+                    <a class="btn shadow-1 rounded-1 btn-outline btn-opening text-blue"
+                       href="{{ path('app_member_edit', {'id': member.id}) }}"><span class="btn-outline-text"><i
+                                    class="fa-solid fa-pen-to-square"></i> Modifier</span></a>
+                    {{ include('member/_delete_form.html.twig') }}
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+    <hr>
+    <h3>Anniversaires dans plus de 30 jours</h3>
+    <div class="grix xs2 md3 lg4">
+        {% for member in annivAutre %}
+            <div class="card white rounded-2 shadow-1 mx-auto" style="max-width: 400px;">
+                <div class="card-content">
+                    <span class="h3">{{ member.lastname }} {{ member.firstname }}</span>
+                    <div class="font-s3 text-grey text-light-2">
+                        {% set now = "now"|date('Y-m-d') %}
+                        {% set birthday = "now"|date('Y') ~ "-" ~ member.birthday|date('m-d') %}
+                        {% set daysDiff = date(birthday).format('z') - now|date('z') %}
+                        {% if daysDiff < 0 %}
+                            {% set daysDiff = 365 + daysDiff %}
+                        {% endif %}
+                        {{ daysDiff ~ ' jours restants' }}
+                    </div>
+                    <div class="mt-3">
+                        Naissance : {{ member.birthday ? member.birthday|date('D, d M Y') : '' }}
+                    </div>
+                </div>
+
+                <div class="card-footer d-flex mt-1">
+                    <a class="btn shadow-1 rounded-1 btn-outline btn-opening text-blue"
+                       href="{{ path('app_member_edit', {'id': member.id}) }}"><span class="btn-outline-text"><i
+                                    class="fa-solid fa-pen-to-square"></i> Modifier</span></a>
+                    {{ include('member/_delete_form.html.twig') }}
+                </div>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+
+{% endblock %}

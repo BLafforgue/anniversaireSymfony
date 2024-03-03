@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle date{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle date</h1>
+
+    {{ include('member/_form.html.twig') }}
+
+    <a class="btn shadow-1 rounded-1 btn-outline btn-opening text-blue"
+       href="{{ path('app_member_index') }}"><span class="btn-outline-text"><i class="fa-solid fa-pen-to-square"></i> Retour</span></a>
+{% endblock %}
